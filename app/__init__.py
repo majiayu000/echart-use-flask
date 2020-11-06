@@ -1,4 +1,4 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, request
 from config import Config
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -8,6 +8,7 @@ from flask_mail import Mail
 from flask_moment import Moment
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
+from flask_bootstrap import Bootstrap
 
 
 db = SQLAlchemy()
@@ -16,12 +17,19 @@ mail = Mail()
 moment = Moment()
 bootstrap = Bootstrap()
 
+def after_request(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    return response
+
 # app的配置  chj：账号  123456：密码   ORCL：链接的数据库
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://chj:123456@127.0.0.1:1521/ORCL'
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    app.after_request(after_request)
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -32,6 +40,9 @@ def create_app(config_class=Config):
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+
+    from app.api_1_0 import bp as api_bp
+    app.register_blueprint(api_bp)
 
     if not app.debug and not app.testing:
         if app.config['MAIL_SERVER']:

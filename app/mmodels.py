@@ -6,11 +6,25 @@ from app import db
 class Case(db.Model):
     # 定义表名：__tablename__
     __tablename__ = 'flasktable'
+    __table_args__ = {"useexisting": True}
     # 定义字段：db.Column
-    id = db.Column(db.Integer, primary_key=True)  # 主键
+    # id_seq = db.Sequence('id_seq')
+    id = db.Column(db.Integer,#id_seq,
+        #server_default=id_seq.next_value(), 
+        primary_key=True)  # 主键
     casename = db.Column(db.String(50), unique=True)  # 唯一
     
     
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+#class Wx(db.Model):
+ #   __tablename__ = 'wx_register'
+#
+ #   id = db.Column(db.Integer, primary_key=True)
+  #  name = db.Column(db.string(50), unique=True)
+   # username = db.Column
+
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ except Exception as err:
     print("Whoops!")
     print(err)
 # print(cursor.description)
-cursor.execute("select * from wx_register")
+cursor.execute("select id,idcard  from wx_register")
 columns = [col[0] for col in cursor.description]
 cursor.rowfactory = lambda *args:dict(zip(columns, args))
 data = cursor.fetchall()
