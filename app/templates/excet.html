@@ -1,0 +1,73 @@
+
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+
+{% block app_content %}
+    <table class="table table-bordered">
+    <tr>
+        <th>用户ID</th>
+        {% for i in data %}
+         
+        <th>{{ i[0] }}</th>
+                
+            
+    {% endfor %}
+       
+    </tr>
+    <tr>
+        <th>姓名</th>
+        {% for i in data %}
+         
+        <th>{{ i[1] }}</th>
+                
+            
+    {% endfor %}
+    </tr>
+    <tr>
+        <th>用户名</th>
+        {% for i in data %}
+         
+        <th>{{ i[2] }}</th>
+                
+            
+    {% endfor %}
+    </tr>
+    <tr>
+        <th>性别</th>
+        {% for i in data %}
+         
+        <th>{{ i[3] }}</th>
+                
+            
+    {% endfor %}
+       
+    </tr>
+    <tr>
+        <th>年龄</th>
+        {% for i in data %}
+         
+        <th>{{ i[4] }}</th>
+                
+            
+    {% endfor %}
+       
+    </tr>
+    <tr>
+        <th>电话</th>
+        {% for i in data %}
+         
+        <th>{{ i[5] }}</th>
+                
+            
+    {% endfor %}
+       
+    </tr>
+
+  
+    
+    </table>
+
+{% endblock %}
